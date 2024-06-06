@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse
 from pytils.translit import slugify
 
-from cars.models import Product, Blog
+from cars.models import Product
 
 
 class CarListView(ListView):
@@ -41,46 +41,9 @@ class CarDeleteView(DeleteView):
     success_url = reverse_lazy('cars:product_list')
 
 
-class BlogListView(ListView):
-    model = Blog
 
 
-class BlogDetailView(DetailView):
-    model = Blog
 
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        self.object.view_counter += 1
-        self.object.save()
-        return self.object
-
-
-class BlogCreateView(CreateView):
-    model = Blog
-    fields = ("name", "category", "photo", "description", "price")
-    success_url = reverse_lazy('cars:blog_list')
-
-    def form_valid(self, form):
-        if form.is_valid():
-            blog_new = form.save()
-            blog_new.slug = slugify(blog_new.title)
-            blog_new.save()
-
-        return super().form_valid(form)
-
-
-class BlogUpdateView(UpdateView):
-    model = Blog
-    fields = ("name", "category", "photo", "description", "price")
-    success_url = reverse_lazy('cars:blog_list')
-
-    def get_success_url(self):
-        return reverse('cars:blog_detail', args=[self.kwargs.get('pk')])
-
-
-class BlogDeleteView(DeleteView):
-    model = Blog
-    success_url = reverse_lazy('cars:blog_list')
 
 # def cars_list(request):
 #     cars = Product.objects.all()

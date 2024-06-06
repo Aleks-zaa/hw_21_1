@@ -1,5 +1,5 @@
 from django.contrib import admin
-from cars.models import Product, Category, Blog
+from cars.models import Product, Category
 
 
 @admin.register(Product)
@@ -15,7 +15,4 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ("name",)
     
 
-@admin.register(Blog)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "description")
-    search_fields = ("title",)
+
