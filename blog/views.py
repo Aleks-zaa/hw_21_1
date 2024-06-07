@@ -9,6 +9,9 @@ from blog.models import Blog
 class BlogListView(ListView):
     model = Blog
 
+    def get_queryset(self):
+        return super().get_queryset().filter(public=True)
+
 
 class BlogDetailView(DetailView):
     model = Blog

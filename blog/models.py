@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import BooleanField
 
 
 class Blog(models.Model):
@@ -6,9 +7,10 @@ class Blog(models.Model):
     title = models.CharField(max_length=100, verbose_name='заголовок')
     description = models.TextField(verbose_name='содержимое')
     image = models.ImageField(upload_to='cars/image', blank=True, null=True, verbose_name='Изображение')
-    public = models.IntegerField(verbose_name='признак публикации', blank=True, null=True)
+    public = BooleanField(verbose_name='признак публикации', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     slug = models.CharField(max_length=100, verbose_name='slug', blank=True, null=True)
+
 
     view_counter = models.PositiveIntegerField(
         verbose_name='Счетчик просмотров',
